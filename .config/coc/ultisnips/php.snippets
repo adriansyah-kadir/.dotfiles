@@ -1,0 +1,63 @@
+# A valid snippet should starts with:
+#
+#		snippet trigger_word [ "description" [ options ] ]
+#
+# and end with:
+#
+#		endsnippet
+#
+# Snippet options:
+#
+#		b - Beginning of line.
+#		i - In-word expansion.
+#		w - Word boundary.
+#		r - Regular expression
+#		e - Custom context snippet
+#		A - Snippet will be triggered automatically, when condition matches.
+#
+# Basic example:
+#
+#		snippet emitter "emitter properties" b
+#		private readonly ${1} = new Emitter<$2>()
+#		public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
+#		endsnippet
+#
+# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+extends html
+
+snippet func "php function" w
+function ${1:func}($2)`!p snip.rv = "\n" if t[1] else ""`{
+	${3:${VISUAL:return}}
+}
+endsnippet
+
+snippet class "php class" b
+class ${1:`!p snip.rv = snip.basename`}
+{
+	pfunc$2
+}
+endsnippet
+
+snippet pfunc "php class fun" w
+p$1${1/(u)|(r)/(?1:blic)(?2:ivate)/} function ${2:name}($3)
+{
+	${4:${VISUAL}}
+}
+endsnippet
+
+snippet pvar "php class variable" w
+p$1${1/(u)|(r)/(?1:blic)(?2:ivate)/} $${2:name} = $3
+endsnippet
+
+snippet psfunc "php class fun" w
+p$1${1/(u)|(r)/(?1:blic)(?2:ivate)/} static function ${2:name}($3)
+{
+	${6:${VISUAL}}
+}
+endsnippet
+
+snippet for "Description" w
+for( ${1:\$i} = ${2:0}; $1 < ${3:10}; ${4:$1++}){
+	${3:${VISUAL:default}}
+}
+endsnippet

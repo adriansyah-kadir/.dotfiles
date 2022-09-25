@@ -1,0 +1,88 @@
+# A valid snippet should starts with:
+#
+#		snippet trigger_word [ "description" [ options ] ]
+#
+# and end with:
+#
+#		endsnippet
+#
+# Snippet options:
+#
+#		b - Beginning of line.
+#		i - In-word expansion.
+#		w - Word boundary.
+#		r - Regular expression
+#		e - Custom context snippet
+#		A - Snippet will be triggered automatically, when condition matches.
+#
+# Basic example:
+#
+#		snippet emitter "emitter properties" b
+#		private readonly ${1} = new Emitter<$2>()
+#		public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
+#		endsnippet
+#
+# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+extends html
+
+snippet class "class" b
+class ${1:name}{
+	constructor(){ $2 }
+}
+endsnippet
+
+snippet clog "console.log" w
+console.log($1)
+endsnippet
+
+snippet cerr "console.err" w
+console.err($1)
+endsnippet
+
+snippet cassert "console.assert" w
+console.assert($1)
+endsnippet
+
+snippet ccount "console.count" w
+console.count($1)
+endsnippet
+	
+snippet cdir "console.dir" w
+console.dir($1)
+endsnippet
+snippet ctime "console.time" w
+console.time($1)
+endsnippet
+snippet ctable "console.table" w
+console.table($1)
+endsnippet
+
+snippet query "query selector" w
+$1querySelector$2('$3')
+endsnippet
+
+snippet func "javascript function" w
+$1${1/(^c)|(^f)|(.*)/(?1:onst)(?2:unction)(?3:h)/} ${2:func}`!p snip.rv = " = () => " if t[1]=="c" else "()"`{
+	${3:${VISUAL:return}}
+}
+endsnippet
+
+snippet if "js if statement" w
+if($1){
+	${2:${VISUAL}}
+}
+endsnippet
+
+snippet exdef "export default" b
+$2${2/(^c)|(^f)|(^l)|(.*)/(?1:onst)(?2:unction)(?3:et)(?4:?)/} $1 = $3
+
+export default ${1:`!p snip.rv = snip.basename.capitalize()`}
+endsnippet
+
+snippet state "useState" b
+let [${1:state}, set`!p snip.rv = t[1][0].upper()+t[1][1:]`] = $2
+endsnippet
+
+snippet ip "import statement" b
+import $2 from "$1"
+endsnippet

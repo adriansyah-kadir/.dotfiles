@@ -1,0 +1,75 @@
+# A valid snippet should starts with:
+#
+#		snippet trigger_word [ "description" [ options ] ]
+#
+# and end with:
+#
+#		endsnippet
+#
+# Snippet options:
+#
+#		b - Beginning of line.
+#		i - In-word expansion.
+#		w - Word boundary.
+#		r - Regular expression
+#		e - Custom context snippet
+#		A - Snippet will be triggered automatically, when condition matches.
+#
+# Basic example:
+#
+#		snippet emitter "emitter properties" b
+#		private readonly ${1} = new Emitter<$2>()
+#		public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
+#		endsnippet
+#
+# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+extends javascript
+
+global !p
+import re
+
+def getregx(reg,txt,ex):
+	noi = re.search(ex,txt)
+	if noi:
+		return ""
+	res = re.search(reg,txt)
+	if not res:
+		return txt
+	pos = res.span() if res else [0,len(txr)]
+	return "</"+txt[pos[0]:pos[1]]+">"
+
+def contain(reg,txt):
+	if re.search(reg,txt):
+		return True
+	return False
+
+endglobal
+
+snippet el "element" w
+<${1:div}>$4${2:${VISUAL:default}}$3`!p snip.rv = getregx("\S*",t[1],"/$")`
+endsnippet
+
+snippet html5 "init" b
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>$1</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+	</head>
+	<body>
+		$2
+	</body>
+</html>
+endsnippet
+
+snippet block "django block templates" w
+{% block $1 %}
+${2:${VISUAL:default}}
+{% endblock %}
+endsnippet
+
+snippet comment "Description" w
+<!-- $1 -->
+${VISUAL}
+<!-- $1 -->
+endsnippet

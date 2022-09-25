@@ -1,0 +1,1 @@
+{"primary_source":{"type":"npm","package":"typescript-language-server"},"schema_version":"1.0a","secondary_sources":[{"type":"npm","package":"typescript"}],"name":"tsserver","metrics":{"start_time":1649641390154,"completion_time":1649641408255}}
